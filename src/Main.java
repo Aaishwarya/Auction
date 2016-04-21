@@ -32,6 +32,5 @@ public class Main
             arrayForStudents[i]=new Student(sCode,sName,cash);
         }
 
-<<<<<<< Updated upstream
         //Read the Bids File
         //Second session
