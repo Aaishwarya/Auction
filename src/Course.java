@@ -3,15 +3,16 @@
  */
 public class Course
 {
-    Course(String fcCode, int cap, String nameOfCourse)
+    String courseName;
+    int courseCap;
+    String courseID;
+    int [] studentsEnrolled;
+    public Course(String fcCode, int cap, String nameOfCourse)
     {
         courseID=fcCode;
         courseCap=cap;
         courseName=nameOfCourse;
         studentsEnrolled=new int[courseCap];
     }
-    String courseName;
-    int courseCap;
-    String courseID;
-    int [] studentsEnrolled;
+
 }

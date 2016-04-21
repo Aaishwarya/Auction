@@ -7,13 +7,14 @@ public class Main
     {
         //Reading the coursecap file
         //Create array(arrayforCourses) for number of courses in the file. Let's say n courses
-
-
+        int n=12,cap=1;
+        String fcCode="",nameOfCourse="";
+        String arrayforCourses=new String[n];
         for(int i=0;i<n;i++)
         {
-            //Let fcCode store the name of the course
-            //Let cap store the cap of the course
-            //nameofCourse has name of Course
+            //Let fcCode store the code of the course-eg FC001
+            //Let cap store the cap of the course- eg 40
+            //nameofCourse has name of Course- eg Indian Civilization
             arrayforCourses[i]=new Course(fcCode,cap,nameOfCourse);
         }
 
