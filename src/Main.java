@@ -30,5 +30,6 @@ public class Main
         }
 
         //Read the Bids File
+        //Second session
     }
 }
