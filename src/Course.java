@@ -1,5 +1,5 @@
 /**
- * Created by Samridh on 19-04-2016.
+ * This class stores details about each course-course id, course name, course cap, students enrolled and seats available
  */
 public class Course
 {

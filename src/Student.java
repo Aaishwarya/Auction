@@ -1,16 +1,16 @@
 /**
- * Created by Samridh on 19-04-2016.
+ * This class stores details of each student-their identification id, name, email id, courses allocated
  */
 public class Student
 {
     int id;
     String name;
-    int cash;
-    public Student(int sCode, String sName, int money)
+    String emailID;
+    public Student(String sCode, String sName, String sID)
     {
         id=sCode;
         name=sName;
-        cash=money;
+        emailID=sID;
     }
 
 }
