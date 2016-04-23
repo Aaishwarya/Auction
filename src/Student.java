@@ -3,7 +3,7 @@
  */
 public class Student
 {
-    int id;
+    String id;
     String name;
     String emailID;
     public Student(String sCode, String sName, String sID)

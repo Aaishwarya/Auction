@@ -11,50 +11,48 @@
  */
 
 import java.util.*;
-public class Main
-{
 
-    public static void main(String[] args)
-    {
-        int numOfCourses = 9, numOfStudents = 500;
+public class Main {
+    //The main method of this class is where the CSV files are read and data is passed to different methods to be computed
+    public static void main(String[] args) {
+        //We can find the value of numOfCourses while reading the CSV Course Details file and assign it
+        //We can find the value of numOfStudents while reading the CSV Student Database file and assign it
+        int numOfCourses = 12, numOfStudents = 500;
         //Create array(arrayforCourses) of objects for each of the courses in the CSV Course Details file.
-        Course arrayForCourses[] = new Course[numOfCourses];
+        ArrayList<Course> arrayForCourses = new ArrayList<Course>();
         //Create array(arrayforStudents) of objects for each of the students in the CSV student database file.
-        Student arrayForStudents[] = new Student[numOfStudents];
-
+        ArrayList<Student> arrayForStudents = new ArrayList<Student>();
 
         //Let fcCode store the code of the course-eg FC001
         //Let CourseCap store the cap of the course- eg 40
         //nameofCourse has name of Course- eg Indian Civilization
-        String fcCode="", nameOfCourse="";
-        int courseCap=1;
+        String fcCode = "", nameOfCourse = "";
+        int courseCap = 1;
 
         //Reading the Course Details CSV file
-        for (int i = 0; i < numOfCourses; i++)
-        {
+        for (int i = 0; i < numOfCourses; i++) {
             //The fcCode, nameOfCourse and courseCap will be read from the file, assigned and passed
-            arrayForCourses[i] = new Course(fcCode, courseCap, nameOfCourse);
+            arrayForCourses.add(new Course(fcCode, courseCap, nameOfCourse));
         }
 
         //Let sCode store ID of the student
         //Let sName store name of the student
         //Let sEmailID store the email id of the student
-        String sCode="",sName="",sEmailID="";
+        String sCode = "", sName = "", sEmailID = "";
 
         //Reading the Student Database File
         for (int i = 0; i < numOfStudents; i++) {
 
             //The sCode, sName and sEmailID will be read from the file, assigned and passed
-            arrayForStudents[i] = new Student(sCode, sName,sEmailID);
+            arrayForStudents.add(new Student(sCode, sName, sEmailID));
         }
 
         //Reading the Bids File course by course (Column wise)
-        for(int i=0;i<numOfCourses;i++)
-        {
+        for (int i = 0; i < numOfCourses; i++) {
             //reads the value attached for the course for each student
-            for(int j=0;j<numOfStudents;j++)
-            {
+            for (int j = 0; j < numOfStudents; j++) {
                 //passes data (Student id and corresponding value attached if any to the Course object)
             }
         }
     }
+}
