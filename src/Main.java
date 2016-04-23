@@ -9,14 +9,14 @@
  *  1)Student list for each subject
  *  2)Redefined Course Details file with subject caps updated after the students have been assigned
  */
+
+import java.util.*;
 public class Main
 {
-    //The main method of this class is where the CSV files are read and data is passed to different methods to be computed
+
     public static void main(String[] args)
     {
-        //We can find the value of numOfCourses while reading the CSV Course Details file and assign it
-        //We can find the value of numOfStudents while reading the CSV Student Database file and assign it
-        int numOfCourses = 12, numOfStudents = 500;
+        int numOfCourses = 9, numOfStudents = 500;
         //Create array(arrayforCourses) of objects for each of the courses in the CSV Course Details file.
         Course arrayForCourses[] = new Course[numOfCourses];
         //Create array(arrayforStudents) of objects for each of the students in the CSV student database file.

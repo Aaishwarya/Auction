@@ -6,13 +6,15 @@ public class Course
     String courseName;
     int courseCap;
     String courseID;
-    int [] studentsEnrolled;
+    Student [] studentsEnrolled;
+    int seatsAvailable;
     public Course(String fcCode, int cap, String nameOfCourse)
     {
         courseID=fcCode;
         courseCap=cap;
         courseName=nameOfCourse;
-        studentsEnrolled=new int[courseCap];
+        studentsEnrolled=new Student[courseCap];
+        seatsAvailable=courseCap;
     }
 
 }
