@@ -1,17 +1,3 @@
-/**
- * This program takes 2 CSV files as input:
- * 1) Course Details file: This file, provided by the Office of Academic Affairs, will store the total number of courses offered,
- *    the corresponding course codes, and the number of seats available for each course.
- * 2) Preferences file: This file, procured from the students using a Google Form, gives us the preference order of courses of each student.
- *
- * Based on these inputs, the program allocates courses to the students in the best manner possible.
- *
- * The program outputs 2 CSV files:
- * 1) Student List: A File containing the names and IDs of the students enrolled in the various courses
- * 2) [Updated] Course Details file: This file contains the number of seats still available in every course, to be fed as input to
- *    another batch of students (if required).
- */
-
 import java.io.*;   //Required since we will read and output .CSV files
 import java.util.*;  //Required since we will use ArrayLists
 
@@ -20,6 +6,19 @@ import java.util.*;  //Required since we will use ArrayLists
  */
 public class Main
 {
+    /**
+     * This method reads 2 CSV files as input:
+     * 1) Course Details file: This file, provided by the Office of Academic Affairs, will store the total number of courses offered,
+     *    the corresponding course codes, and the number of seats available for each course.
+     * 2) Preferences file: This file, procured from the students using a Google Form, gives us the preference order of courses of each student.
+     *
+     * Based on these inputs, the program allocates courses to the students in the best manner possible.
+     *
+     * The program outputs 2 CSV files:
+     * 1) Student List: A File containing the names and IDs of the students enrolled in the various courses
+     * 2) [Updated] Course Details file: This file contains the number of seats still available in every course, to be fed as input to
+     *    another batch of students (if required).
+     */
     public static void main(String[] args)
     {
         /**
