@@ -22,6 +22,7 @@ public class Student
             PreferenceArrayOfStudent[i]=componentsOfEachLine[i+2];
         }
     }
+    Student() {}
     String StudentName;
     String StudentID;
     String[] PreferenceArrayOfStudent;

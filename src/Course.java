@@ -16,6 +16,7 @@ public class Course
         courseName=componentsOfEachLine[1];
         courseCap=Integer.parseInt(componentsOfEachLine[2]);
     }
+    Course(){}
     String courseName;
     String courseCode;
     int courseCap;

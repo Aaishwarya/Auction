@@ -24,7 +24,12 @@ public class Main
         /**
          * The CourseList List will contain objects corresponding to each course offered
          */
-        List<Course> CourseList=new ArrayList<>();
+        List<Course> courseList=new ArrayList<>();
+
+        /**
+         * The PreferencesList List will contain objects corresponding to each student, with his/her preferences
+         */
+        List<Student> preferencesList=new ArrayList<>();
         try
         {
             //Read Course Details File
@@ -37,13 +42,10 @@ public class Main
             //Reading every line of the CSV file, and adding an object corresponding to each course
             while(input!=null)
             {
-                CourseList.add(new Course(input));
+                courseList.add(new Course(input));
                 input=lnr.readLine();
             }
-            /**
-             * The PreferencesList List will contain objects corresponding to each student, with his/her preferences
-             */
-            List<Student> PreferencesList=new ArrayList<>();
+
             //Read Preferences File
             File preferencesFile=new File("."+File.separator+"Preferences.csv");
             FileReader fr2=new FileReader(preferencesFile);
@@ -54,17 +56,38 @@ public class Main
             //Reading every line of the CSV file, and adding an object corresponding to each student, and his/her preferences
             while(input2!=null)
             {
-                PreferencesList.add(new Student(input2));
+                preferencesList.add(new Student(input2));
                 input2=lnr2.readLine();
             }
 
             //Moving to allocation of courses.
-            int numberOfCourses=CourseList.size();
-            int numberOfStudents=PreferencesList.size();
+            int numberOfCourses=courseList.size();
+            int numberOfStudents=preferencesList.size();
 
         }catch (IOException e)
         {
             System.out.println("Found Exception: "+e);
         }
+        Main obj=new Main();
+        Student studentObject = new Student();
+        Course courseObject = new Course();
+        obj.allocateCourses(courseList,preferencesList);
+        obj.createOutputFiles();
+    }
+
+    /**
+     * This function will allocate courses based on an algorithm.
+     */
+    public void allocateCourses(List courseList, List preferencesList)
+    {
+        //Allocate courses, and create output files.
+    }
+
+    /**
+     * This function will create the output files.
+     */
+    public void createOutputFiles()
+    {
+        //Create Output Files
     }
 }
