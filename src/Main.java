@@ -29,7 +29,7 @@ public class Main
         /**
          * The PreferencesList List will contain objects corresponding to each student, with his/her preferences
          */
-        List<Student> studentPreferencesList=new ArrayList<>();
+        List<Student> studentList=new ArrayList<>();
         try
         {
             //Read Course Details File
@@ -56,13 +56,11 @@ public class Main
             //Reading every line of the CSV file, and adding an object corresponding to each student, and his/her preferences
             while(input2!=null)
             {
-                studentPreferencesList.add(new Student(input2));
+                studentList.add(new Student(input2));
                 input2=lnr2.readLine();
             }
 
-            //Moving to allocation of courses.
-            int numberOfCourses=courseList.size();
-            int numberOfStudents=studentPreferencesList.size();
+
 
         }catch (IOException e)
         {
@@ -71,16 +69,32 @@ public class Main
         Main obj=new Main();
         Student studentObject = new Student();
         Course courseObject = new Course();
-        obj.allocateCourses(courseList,studentPreferencesList);
+        obj.allocateCourses(courseList,studentList);
         obj.createOutputFiles();
     }
 
     /**
      * This function will allocate courses based on an algorithm.
      */
-    public void allocateCourses(List courseList, List studentPreferencesList)
+    public void allocateCourses(List<Course> courseList, List<Student> studentList)
     {
+        int numberOfCourses=courseList.size();
+        int numberOfStudents=studentList.size();
+        List<Student> cloneStudentList=new ArrayList<>(numberOfStudents);
+        for(Iterator it=studentList.iterator();it.hasNext();)
+        {
+            cloneStudentList.add((Student) it.next());
+        }
+        for(int i=0;i<numberOfCourses;i++)
+        {
+            cloneStudentList=RemoveRedundancies(cloneStudentList);
+         Collections.shuffle(cloneStudentList);
+            for(Iterator it=cloneStudentList.iterator();it.hasNext();)
+            {
+              Student s= (Student) it.next();
 
+            }
+        }
     }
 
     /**
@@ -90,4 +104,21 @@ public class Main
     {
         //Create Output Files
     }
+
+    /**
+     * To remove redundancies in the StudentList
+     */
+    public List RemoveRedundancies(List studentList)
+    {
+        for(Iterator it=studentList.iterator();it.hasNext();)
+        {
+            Student s= (Student) it.next();
+            if (s.numberOfCoursesStudentWants==s.CoursesAllocatedToStudent.size())
+            {
+                studentList.remove(s);
+            }
+        }
+        return studentList;
+    }
 }
+

@@ -33,5 +33,5 @@ public class Student
     /**
      *This List contains the Course objects of the courses allocated to the student.
      */
-    List<Course> CoursesAllocatedToStudent= new ArrayList<>(4);
+    List<Course> CoursesAllocatedToStudent= new ArrayList<>();
 }
