@@ -29,7 +29,7 @@ public class Main
         /**
          * The PreferencesList List will contain objects corresponding to each student, with his/her preferences
          */
-        List<Student> preferencesList=new ArrayList<>();
+        List<Student> studentPreferencesList=new ArrayList<>();
         try
         {
             //Read Course Details File
@@ -56,13 +56,13 @@ public class Main
             //Reading every line of the CSV file, and adding an object corresponding to each student, and his/her preferences
             while(input2!=null)
             {
-                preferencesList.add(new Student(input2));
+                studentPreferencesList.add(new Student(input2));
                 input2=lnr2.readLine();
             }
 
             //Moving to allocation of courses.
             int numberOfCourses=courseList.size();
-            int numberOfStudents=preferencesList.size();
+            int numberOfStudents=studentPreferencesList.size();
 
         }catch (IOException e)
         {
@@ -71,16 +71,16 @@ public class Main
         Main obj=new Main();
         Student studentObject = new Student();
         Course courseObject = new Course();
-        obj.allocateCourses(courseList,preferencesList);
+        obj.allocateCourses(courseList,studentPreferencesList);
         obj.createOutputFiles();
     }
 
     /**
      * This function will allocate courses based on an algorithm.
      */
-    public void allocateCourses(List courseList, List preferencesList)
+    public void allocateCourses(List courseList, List studentPreferencesList)
     {
-        //Allocate courses, and create output files.
+
     }
 
     /**
