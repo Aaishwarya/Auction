@@ -13,19 +13,21 @@ public class Student
     Student(String line)
     {
         String[] componentsOfEachLine=line.split(",");
-        int numberOfCourses=componentsOfEachLine.length-2;
-        PreferenceArrayOfStudent=new String[numberOfCourses];
-        StudentName=componentsOfEachLine[0];
-        StudentID=componentsOfEachLine[1];
+        int numberOfCourses=componentsOfEachLine.length-3;
+        preferenceArrayOfStudent=new String[numberOfCourses];
+        studentName=componentsOfEachLine[0];
+        studentID=componentsOfEachLine[1];
+        numberOfCoursesStudentWants=componentsOfEachLine[2];
         for (int i=0;i<=numberOfCourses;i++)
         {
-            PreferenceArrayOfStudent[i]=componentsOfEachLine[i+2];
+            preferenceArrayOfStudent[i]=componentsOfEachLine[i+2];
         }
     }
     Student() {}
-    String StudentName;
-    String StudentID;
-    String[] PreferenceArrayOfStudent;
+    String studentName;
+    String studentID;
+    String numberOfCoursesStudentWants;
+    String[] preferenceArrayOfStudent;
     /**
      *This List contains the Course objects of the courses allocated to the student.
      */
