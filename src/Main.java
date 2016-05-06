@@ -37,7 +37,6 @@ public class Main
             FileReader fr=new FileReader(courseDetailsFile);
             LineNumberReader lnr=new LineNumberReader(fr);
             String input=lnr.readLine();
-            input=lnr.readLine();
 
             //Reading every line of the CSV file, and adding an object corresponding to each course
             while(input!=null)
@@ -97,9 +96,10 @@ public class Main
                 if(flag==0&& it.hasPrevious())
                 {
                     s=(Student) it.previous();
+                    flag=1;
                 }
-                String preferenceArrayOfStudent[]=new String[s.preferenceSetOfStudent.size()];
-                preferenceArrayOfStudent=(String[]) s.preferenceSetOfStudent.toArray(new String[0]);
+
+                String preferenceArrayOfStudent[]=(String[]) s.preferenceSetOfStudent.toArray();
                 for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
                 {
                     Course c=(Course) courseIt.next();
