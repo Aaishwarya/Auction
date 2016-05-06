@@ -14,7 +14,7 @@ public class Student
     {
         String[] componentsOfEachLine=line.split(",");
         int numberOfCourses=componentsOfEachLine.length-5;
-        preferenceArrayOfStudent=new ArrayList<>(numberOfCourses);
+        preferenceArrayOfStudent=new LinkedHashSet<>();
         studentEmailId=componentsOfEachLine[1];
         studentName=componentsOfEachLine[2];
         studentEnrollmentID=componentsOfEachLine[3];
@@ -29,7 +29,7 @@ public class Student
     String studentName;
     String studentEnrollmentID;
     int numberOfCoursesStudentWants;
-    List<String> preferenceArrayOfStudent;
+    Set<String> preferenceArrayOfStudent;
     /**
      *This List contains the Course objects of the courses allocated to the student.
      */

@@ -87,11 +87,12 @@ public class Main
         }
         for(int i=0;i<numberOfCourses;i++)
         {
-            cloneStudentList=RemoveRedundancies(cloneStudentList);
-         Collections.shuffle(cloneStudentList);
+            cloneStudentList=RemoveRedundancies(cloneStudentList,i);
+            Collections.shuffle(cloneStudentList);
             for(Iterator it=cloneStudentList.iterator();it.hasNext();)
             {
               Student s= (Student) it.next();
+                String course=s.preferenceArrayOfStudent
 
             }
         }
@@ -108,15 +109,16 @@ public class Main
     /**
      * To remove redundancies in the StudentList
      */
-    public List RemoveRedundancies(List studentList)
+    public List RemoveRedundancies(List studentList, int prefNo)
     {
         for(Iterator it=studentList.iterator();it.hasNext();)
         {
             Student s= (Student) it.next();
-            if (s.numberOfCoursesStudentWants==s.CoursesAllocatedToStudent.size())
+            if ((s.numberOfCoursesStudentWants==s.CoursesAllocatedToStudent.size())||(s.preferenceArrayOfStudent.size()<=prefNo))
             {
                 studentList.remove(s);
             }
+
         }
         return studentList;
     }
