@@ -87,12 +87,39 @@ public class Main
         }
         for(int i=0;i<numberOfCourses;i++)
         {
+
             cloneStudentList=RemoveRedundancies(cloneStudentList,i);
             Collections.shuffle(cloneStudentList);
-            for(Iterator it=cloneStudentList.iterator();it.hasNext();)
+            int flag=1;
+            for(ListIterator it = (ListIterator) cloneStudentList.iterator(); it.hasNext();)
             {
               Student s= (Student) it.next();
-                String course=s.preferenceArrayOfStudent
+                if(flag==0&& it.hasPrevious())
+                {
+                    s=(Student) it.previous();
+                }
+                String preferenceArrayOfStudent[]=new String[s.preferenceSetOfStudent.size()];
+                preferenceArrayOfStudent=(String[]) s.preferenceSetOfStudent.toArray(new String[0]);
+                for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
+                {
+                    Course c=(Course) courseIt.next();
+                    if(c.courseName.equalsIgnoreCase(preferenceArrayOfStudent[i]))
+                    {
+                        if(c.courseCap!=0)
+                        {
+                            c.StudentsEnrolledInCourse.add(s);
+                            s.CoursesAllocatedToStudent.add(c);
+                            c.courseCap--;
+                        }
+                        else
+                        {
+                          s.preferenceSetOfStudent.remove(c);
+                            flag=0;
+                            break;
+                        }
+                    }
+                }
+
 
             }
         }
@@ -114,7 +141,7 @@ public class Main
         for(Iterator it=studentList.iterator();it.hasNext();)
         {
             Student s= (Student) it.next();
-            if ((s.numberOfCoursesStudentWants==s.CoursesAllocatedToStudent.size())||(s.preferenceArrayOfStudent.size()<=prefNo))
+            if ((s.numberOfCoursesStudentWants==s.CoursesAllocatedToStudent.size())||(s.preferenceSetOfStudent.size()<=prefNo))
             {
                 studentList.remove(s);
             }

@@ -14,14 +14,14 @@ public class Student
     {
         String[] componentsOfEachLine=line.split(",");
         int numberOfCourses=componentsOfEachLine.length-5;
-        preferenceArrayOfStudent=new LinkedHashSet<>();
+        preferenceSetOfStudent=new LinkedHashSet<>();
         studentEmailId=componentsOfEachLine[1];
         studentName=componentsOfEachLine[2];
         studentEnrollmentID=componentsOfEachLine[3];
         numberOfCoursesStudentWants=Integer.parseInt(componentsOfEachLine[4]);
         for (int i=0;i<numberOfCourses;i++)
         {
-            preferenceArrayOfStudent.add(componentsOfEachLine[i+5]);
+            preferenceSetOfStudent.add(componentsOfEachLine[i+5]);
         }
     }
     Student() {}
@@ -29,7 +29,7 @@ public class Student
     String studentName;
     String studentEnrollmentID;
     int numberOfCoursesStudentWants;
-    Set<String> preferenceArrayOfStudent;
+    LinkedHashSet<String> preferenceSetOfStudent;
     /**
      *This List contains the Course objects of the courses allocated to the student.
      */
