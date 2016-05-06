@@ -99,17 +99,21 @@ public class Main
                     flag=1;
                 }
 
+                if(s.preferenceSetOfStudent.size()<=i)
+                {
+                    continue;
+                }
                 String preferenceArrayOfStudent[]=(String[]) s.preferenceSetOfStudent.toArray();
                 for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
                 {
                     Course c=(Course) courseIt.next();
                     if(c.courseName.equalsIgnoreCase(preferenceArrayOfStudent[i]))
                     {
-                        if(c.courseCap!=0)
+                        if(c.seatsAvailable!=0)
                         {
                             c.StudentsEnrolledInCourse.add(s);
                             s.CoursesAllocatedToStudent.add(c);
-                            c.courseCap--;
+                            c.seatsAvailable--;
                         }
                         else
                         {
