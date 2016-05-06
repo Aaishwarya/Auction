@@ -14,22 +14,22 @@ public class Student
     {
         String[] componentsOfEachLine=line.split(",");
         int numberOfCourses=componentsOfEachLine.length-5;
-        preferenceArrayOfStudent=new String[numberOfCourses];
+        preferenceArrayOfStudent=new ArrayList<>(numberOfCourses);
         studentEmailId=componentsOfEachLine[1];
         studentName=componentsOfEachLine[2];
         studentEnrollmentID=componentsOfEachLine[3];
-        numberOfCoursesStudentWants=componentsOfEachLine[4];
-        for (int i=0;i<=numberOfCourses;i++)
+        numberOfCoursesStudentWants=Integer.parseInt(componentsOfEachLine[4]);
+        for (int i=0;i<numberOfCourses;i++)
         {
-            preferenceArrayOfStudent[i]=componentsOfEachLine[i+2];
+            preferenceArrayOfStudent.add(componentsOfEachLine[i+5]);
         }
     }
     Student() {}
     String studentEmailId;
     String studentName;
     String studentEnrollmentID;
-    String numberOfCoursesStudentWants;
-    String[] preferenceArrayOfStudent;
+    int numberOfCoursesStudentWants;
+    List<String> preferenceArrayOfStudent;
     /**
      *This List contains the Course objects of the courses allocated to the student.
      */
