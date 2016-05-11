@@ -78,8 +78,6 @@ public class Main
      */
     public void allocateCourses(List<Course> courseList, List<Student> studentList)
     {
-        try
-        {
         int numberOfCourses=courseList.size();
         int numberOfStudents=studentList.size();
         List<Student> cloneStudentList=new ArrayList<>(numberOfStudents);
@@ -102,21 +100,17 @@ public class Main
                     flag=1;
                 }
 
-                if(s.preferenceSetOfStudent.size()<=i)
-                {
-                    continue;
-                }
                 String preferenceArrayOfStudent[]=(String[]) s.preferenceSetOfStudent.toArray();
                 for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
                 {
                     Course c=(Course) courseIt.next();
                     if(c.courseName.equalsIgnoreCase(preferenceArrayOfStudent[i]))
                     {
-                        if(c.seatsAvailable!=0)
+                        if(c.courseCap!=0)
                         {
                             c.StudentsEnrolledInCourse.add(s);
                             s.CoursesAllocatedToStudent.add(c);
-                            c.seatsAvailable--;
+                            c.courseCap--;
                         }
                         else
                         {
@@ -131,10 +125,6 @@ public class Main
             }
         }
     }
-        catch(NumberFormatException e)
-        {
-         System.out.println("Invalid format of data entered. Expected format was integer.");
-        }
 
     /**
      * This function will create the output files.
@@ -161,3 +151,4 @@ public class Main
         return studentList;
     }
 }
+
