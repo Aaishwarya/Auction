@@ -139,8 +139,14 @@ public class Main
      */
     public List RemoveRedundancies(List studentList, int prefNo)
     {
+        List<Student> cloneStudentsList=new ArrayList<>(studentList.size());
         for(Iterator it=studentList.iterator();it.hasNext();)
         {
+            cloneStudentsList.add((Student) it.next());
+        }
+        for(Iterator it=cloneStudentsList.iterator();it.hasNext();)
+        {
+
             Student s= (Student) it.next();
             if ((s.numberOfCoursesStudentWants==s.CoursesAllocatedToStudent.size())||(s.preferenceSetOfStudent.size()<=prefNo))
             {
