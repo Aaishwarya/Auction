@@ -162,7 +162,7 @@ public class Main
         }
         File file2 = new File ("." + File.separator + "StudentCourseList.csv");
         CSVPrinter printer2 = new CSVPrinter (new BufferedWriter (new FileWriter (file2)), CSVFormat.EXCEL);
-        printer2.printRecord ("Student Enrollment ID", "Student Email ID", "Student Name", "Course1", "Course2", "Course3", "Course4");
+        printer2.printRecord ("Student Enrollment ID", "Student Email ID", "Student Name", "Course1", "Course2", "Course3");
         for(Iterator eachStudent=studentList.iterator();eachStudent.hasNext();)
         {
             Student s=(Student) eachStudent.next();
@@ -177,6 +177,17 @@ public class Main
             printer2.println();
 
         }printer2.close();
+
+        //Altered Course Details file
+        File file3 = new File ("." + File.separator + "Altered Course Details.csv");
+        CSVPrinter printer3 = new CSVPrinter (new BufferedWriter (new FileWriter (file3)), CSVFormat.EXCEL);
+        printer3.printRecord("Course Code", "Course Name", "Course Cap");
+        for(Iterator courseIt=courseList.iterator();courseIt.hasNext();) {
+            Course c = (Course) courseIt.next ( );
+            printer3.printRecord (c.courseCode, c.courseName, c.courseCap);
+        }printer3.close();
+
+
 
     }
 

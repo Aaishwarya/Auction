@@ -29,8 +29,8 @@
       <file leaf-file-name="Course.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Course.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+            <state relative-caret-position="330">
+              <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -54,8 +54,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-195">
-              <caret line="164" column="135" selection-start-line="164" selection-start-column="135" selection-end-line="164" selection-end-column="135" />
+            <state relative-caret-position="-131">
+              <caret line="190" column="0" selection-start-line="190" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -612,7 +612,14 @@
       <option name="project" value="LOCAL" />
       <updated>1463001693194</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Code working successfully with the outputs printing in right format. Need to test the results">
+      <created>1463004919878</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1463004919878</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -685,7 +692,8 @@
     <MESSAGE value="Added documentation" />
     <MESSAGE value="Written outputting CSV file code" />
     <MESSAGE value="Written output file generator per subject--Removed the stream.close() error." />
-    <option name="LAST_COMMIT_MESSAGE" value="Written output file generator per subject--Removed the stream.close() error." />
+    <MESSAGE value="Code working successfully with the outputs printing in right format. Need to test the results" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code working successfully with the outputs printing in right format. Need to test the results" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -985,8 +993,8 @@
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_91/src.zip!/java/lang/NumberFormatException.java" />
     <entry file="file://$PROJECT_DIR$/src/Course.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+        <state relative-caret-position="330">
+          <caret line="22" column="7" selection-start-line="22" selection-start-column="7" selection-end-line="22" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -1006,8 +1014,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-195">
-          <caret line="164" column="135" selection-start-line="164" selection-start-column="135" selection-end-line="164" selection-end-column="135" />
+        <state relative-caret-position="-131">
+          <caret line="190" column="0" selection-start-line="190" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
