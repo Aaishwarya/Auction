@@ -37,6 +37,7 @@ public class Main
             FileReader fr=new FileReader(courseDetailsFile);
             LineNumberReader lnr=new LineNumberReader(fr);
             String input=lnr.readLine();
+            input=lnr.readLine();
 
             //Reading every line of the CSV file, and adding an object corresponding to each course
             while(input!=null)
@@ -154,4 +155,3 @@ public class Main
         return studentList;
     }
 }
-
