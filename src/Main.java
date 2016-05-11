@@ -100,7 +100,7 @@ public class Main
                     flag=1;
                 }
 
-                String preferenceArrayOfStudent[]=(String[]) s.preferenceSetOfStudent.toArray();
+                String preferenceArrayOfStudent[]=(String[]) s.preferenceSetOfStudent.toArray(new String[s.preferenceSetOfStudent.size()]);
                 for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
                 {
                     Course c=(Course) courseIt.next();
