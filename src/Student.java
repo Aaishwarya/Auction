@@ -1,3 +1,5 @@
+import org.apache.commons.csv.CSVRecord;
+
 import java.util.*;  //Required since we will use split method
 
 /**
@@ -10,6 +12,8 @@ public class Student
      * @param line This string, which is an individual line in the Preferences CSV file, contains the name, ID, and the course preferences order
      *             of the student, all separated by commas.
      */
+
+    /*
     Student(String line)
     {
         String[] componentsOfEachLine=line.split(",");
@@ -23,6 +27,22 @@ public class Student
         {
             preferenceSetOfStudent.add(componentsOfEachLine[i+5]);
         }
+    }
+    */
+
+    Student(CSVRecord preferenceRecord)
+    {
+        preferenceSetOfStudent=new LinkedHashSet<>();
+        studentEmailId=preferenceRecord.get(1);
+        studentName=preferenceRecord.get(2);
+        studentEnrollmentID=preferenceRecord.get(3);
+        numberOfCoursesStudentWants=Integer.parseInt(preferenceRecord.get(4));
+        int numberOfCourses=preferenceRecord.size()-5;
+        for(int i=0;i<numberOfCourses;i++)
+        {
+            preferenceSetOfStudent.add(preferenceRecord.get(i+5));
+        }
+
     }
     Student() {}
     String studentEmailId;

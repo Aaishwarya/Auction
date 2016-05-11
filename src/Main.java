@@ -36,7 +36,18 @@ public class Main
          * The studentList List will contain objects corresponding to each student, with his/her preferences
          */
         List<Student> studentList = new ArrayList<>();
+
+
         try {
+
+            CSVParser parser = CSVParser.parse(new File("."+File.separator+"Course Details.csv"), Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
+            List<CSVRecord> courseDetails = parser.getRecords();
+            for(CSVRecord courseRecord : courseDetails)
+            {
+                courseList.add(new Course(courseRecord));
+            }
+
+            /*
             //Read Course Details File frfileNameom the specified directory
             File courseDetailsFile = new File("." + File.separator + "Course Details.csv");
             CSVParser inParser = CSVParser.parse(courseDetailsFile, Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
@@ -49,8 +60,19 @@ public class Main
                 courseList.add(new Course(coursesInput));
                 coursesInput = lnr.readLine();
             }
+            */
+
+            CSVParser parser2 = CSVParser.parse(new File("."+File.separator+"Preferences.csv"), Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
+            List<CSVRecord> preferencesDetails = parser2.getRecords();
+            for(CSVRecord preferenceRecord : preferencesDetails)
+            {
+                studentList.add(new Student(preferenceRecord));
+            }
+
 
             //Reads the Preferences File from the specified Directory
+
+            /*
             File preferencesFile = new File("." + File.separator + "Preferences.csv");
             FileReader fr2 = new FileReader(preferencesFile);
             LineNumberReader lnr2 = new LineNumberReader(fr2);
@@ -62,7 +84,7 @@ public class Main
                 studentList.add(new Student(PreferencesInput));
                 PreferencesInput = lnr2.readLine();
             }
-
+            */
 
 
 
