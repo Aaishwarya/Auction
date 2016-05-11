@@ -78,6 +78,8 @@ public class Main
      */
     public void allocateCourses(List<Course> courseList, List<Student> studentList)
     {
+        try
+        {
         int numberOfCourses=courseList.size();
         int numberOfStudents=studentList.size();
         List<Student> cloneStudentList=new ArrayList<>(numberOfStudents);
@@ -129,6 +131,10 @@ public class Main
             }
         }
     }
+        catch(NumberFormatException e)
+        {
+         System.out.println("Invalid format of data entered. Expected format was integer.");
+        }
 
     /**
      * This function will create the output files.
