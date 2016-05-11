@@ -22,55 +22,53 @@ public class Main
     public static void main(String[] args)
     {
         /**
-         * The CourseList List will contain objects corresponding to each course offered
+         * The courseList List will contain objects corresponding to each course offered
          */
         List<Course> courseList=new ArrayList<>();
 
         /**
-         * The PreferencesList List will contain objects corresponding to each student, with his/her preferences
+         * The studentList List will contain objects corresponding to each student, with his/her preferences
          */
         List<Student> studentList=new ArrayList<>();
         try
         {
-            //Read Course Details File
+            //Read Course Details File from the specified directory
             File courseDetailsFile=new File("."+File.separator+"Course Details.csv");
             FileReader fr=new FileReader(courseDetailsFile);
             LineNumberReader lnr=new LineNumberReader(fr);
-            String input=lnr.readLine();
-            input=lnr.readLine();
+            String coursesHeaderLine=lnr.readLine(); //reads the first line of the file which is the header file
+            String coursesInput=lnr.readLine(); //reads each line of the Course Details File.
 
-            //Reading every line of the CSV file, and adding an object corresponding to each course
-            while(input!=null)
+            //Reading every line of the Course Details file, and adding an object corresponding to each course to the courseList
+            while(coursesInput!=null)
             {
-                courseList.add(new Course(input));
-                input=lnr.readLine();
+                courseList.add(new Course(coursesInput));
+                coursesInput=lnr.readLine();
             }
 
-            //Read Preferences File
+            //Reads the Preferences File from the specified Directory
             File preferencesFile=new File("."+File.separator+"Preferences.csv");
             FileReader fr2=new FileReader(preferencesFile);
             LineNumberReader lnr2=new LineNumberReader(fr2);
-            String input2=lnr2.readLine();
-            input2=lnr2.readLine();
+            String PreferencesHeaderLine=lnr2.readLine(); //reads the first line of the file which is the header file
+            String PreferencesInput=lnr2.readLine(); //reads each line of the Preferences File.
 
             //Reading every line of the CSV file, and adding an object corresponding to each student, and his/her preferences
-            while(input2!=null)
+            while(PreferencesInput!=null)
             {
-                studentList.add(new Student(input2));
-                input2=lnr2.readLine();
+                studentList.add(new Student(PreferencesInput));
+                PreferencesInput=lnr2.readLine();
             }
 
 
-
+        //catches an IO Exception if found
         }catch (IOException e)
         {
             System.out.println("Found Exception: "+e);
         }
         Main obj=new Main();
-        Student studentObject = new Student();
-        Course courseObject = new Course();
-        obj.allocateCourses(courseList,studentList);
-        obj.createOutputFiles();
+        obj.allocateCourses(courseList,studentList); //passes the two lists to allocate students as per preferences
+        obj.createOutputFiles(); //once the course allocations have been done, creates output CSV files
     }
 
     /**
@@ -80,20 +78,29 @@ public class Main
     {
         int numberOfCourses=courseList.size();
         int numberOfStudents=studentList.size();
+
+        //creates a new clone list of the original student list
         List<Student> cloneStudentList=new ArrayList<>(numberOfStudents);
         for(Iterator it=studentList.iterator();it.hasNext();)
         {
             cloneStudentList.add((Student) it.next());
         }
+
+        //iterates for as many times as the maximum preference a student can have, i.e. the total number of courses
+        PRIME:
         for(int i=0;i<numberOfCourses;i++)
         {
 
-            cloneStudentList=RemoveRedundancies(cloneStudentList,i);
-            Collections.shuffle(cloneStudentList);
-            int flag=1;
+            cloneStudentList=RemoveRedundancies(cloneStudentList,i); //returns a redundancy-free modified cloneStudentList
+            Collections.shuffle(cloneStudentList); //shuffles the cloneStudentList to achieve a random order
+            int flag=1;//serves as a indicator to move on to the next student once the previous student has been assigned a course(flag=1) else repeat(flag=0)
+
+            //iterates on the shuffled list to assign courses student by student
             for(ListIterator it = (ListIterator) cloneStudentList.listIterator(); it.hasNext();)
             {
               Student s= (Student) it.next();
+
+                //repeats allocation for same student if (s)he hasn't been assigned one in the current PRIME iteration
                 if(flag==0&& it.hasPrevious())
                 {
                     s=(Student) it.previous();
