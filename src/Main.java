@@ -91,7 +91,7 @@ public class Main
             cloneStudentList=RemoveRedundancies(cloneStudentList,i);
             Collections.shuffle(cloneStudentList);
             int flag=1;
-            for(ListIterator it = (ListIterator) cloneStudentList.iterator(); it.hasNext();)
+            for(ListIterator it = (ListIterator) cloneStudentList.listIterator(); it.hasNext();)
             {
               Student s= (Student) it.next();
                 if(flag==0&& it.hasPrevious())
