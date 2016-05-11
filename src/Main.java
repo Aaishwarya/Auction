@@ -165,22 +165,23 @@ public class Main
      * This function will create the output files.
      */
     public void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("."+File.separator+"Output1.csv"));
-        CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL);
-        for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
-        {
-            Course c=(Course) courseIt.next();
-            List<Student> enrolled=c.StudentsEnrolledInCourse;
-            for(Iterator eachCourse=enrolled.iterator();eachCourse.hasNext();)
-            {
-                Student s= (Student) eachCourse.next();
-                printer.printRecord(s.studentName);
+
+        for(Iterator courseIt=courseList.iterator();courseIt.hasNext();) {
+            Course c = (Course) courseIt.next ( );
+            String fileName = c.courseCode;
+            File file = new File ("." + File.separator + fileName + ".csv");
+            CSVPrinter printer = new CSVPrinter (new BufferedWriter (new FileWriter (file)), CSVFormat.EXCEL);
+            printer.printRecord ("Student Name", "Student Enrollment ID", "Student Email id");
+            List<Student> enrolled = c.StudentsEnrolledInCourse;
+            for (Iterator eachCourse = enrolled.iterator ( ); eachCourse.hasNext ( ); ) {
+                Student s = (Student) eachCourse.next ( );
+                printer.printRecord (s.studentName, s.studentEnrollmentID, s.studentEmailId);
             }
+
+            printer.close ( );
+
         }
-        printer.printRecord("Student Name","Student Email id");
-        printer.close();
-        writer.flush();
-        writer.close();
+
     }
 
     /**
