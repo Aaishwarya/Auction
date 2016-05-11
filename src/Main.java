@@ -1,5 +1,12 @@
 import java.io.*;   //Required since we will read and output .CSV files
+import java.nio.charset.Charset;
 import java.util.*;  //Required since we will use ArrayLists
+
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+
 
 /**
  * The Main Class contains the main function, and here we will take the input files for the Course Lists, and the Preferences of the Students
@@ -19,56 +26,55 @@ public class Main
      * 2) [Updated] Course Details file: This file contains the number of seats still available in every course, to be fed as input to
      *    another batch of students (if required).
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         /**
          * The courseList List will contain objects corresponding to each course offered
          */
-        List<Course> courseList=new ArrayList<>();
+        List<Course> courseList = new ArrayList<>();
 
         /**
          * The studentList List will contain objects corresponding to each student, with his/her preferences
          */
-        List<Student> studentList=new ArrayList<>();
-        try
-        {
-            //Read Course Details File from the specified directory
-            File courseDetailsFile=new File("."+File.separator+"Course Details.csv");
-            FileReader fr=new FileReader(courseDetailsFile);
-            LineNumberReader lnr=new LineNumberReader(fr);
-            String coursesHeaderLine=lnr.readLine(); //reads the first line of the file which is the header file
-            String coursesInput=lnr.readLine(); //reads each line of the Course Details File.
-
+        List<Student> studentList = new ArrayList<>();
+        try {
+            //Read Course Details File frfileNameom the specified directory
+            File courseDetailsFile = new File("." + File.separator + "Course Details.csv");
+            CSVParser inParser = CSVParser.parse(courseDetailsFile, Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
+            FileReader fr = new FileReader(courseDetailsFile);
+            LineNumberReader lnr = new LineNumberReader(fr);
+            String coursesHeaderLine = lnr.readLine(); //reads the first line of the file which is the header file
+            String coursesInput = lnr.readLine(); //reads each line of the Course Details File.
             //Reading every line of the Course Details file, and adding an object corresponding to each course to the courseList
-            while(coursesInput!=null)
-            {
+            while (coursesInput != null) {
                 courseList.add(new Course(coursesInput));
-                coursesInput=lnr.readLine();
+                coursesInput = lnr.readLine();
             }
 
             //Reads the Preferences File from the specified Directory
-            File preferencesFile=new File("."+File.separator+"Preferences.csv");
-            FileReader fr2=new FileReader(preferencesFile);
-            LineNumberReader lnr2=new LineNumberReader(fr2);
-            String PreferencesHeaderLine=lnr2.readLine(); //reads the first line of the file which is the header file
-            String PreferencesInput=lnr2.readLine(); //reads each line of the Preferences File.
+            File preferencesFile = new File("." + File.separator + "Preferences.csv");
+            FileReader fr2 = new FileReader(preferencesFile);
+            LineNumberReader lnr2 = new LineNumberReader(fr2);
+            String PreferencesHeaderLine = lnr2.readLine(); //reads the first line of the file which is the header file
+            String PreferencesInput = lnr2.readLine(); //reads each line of the Preferences File.
 
             //Reading every line of the CSV file, and adding an object corresponding to each student, and his/her preferences
-            while(PreferencesInput!=null)
-            {
+            while (PreferencesInput != null) {
                 studentList.add(new Student(PreferencesInput));
-                PreferencesInput=lnr2.readLine();
+                PreferencesInput = lnr2.readLine();
             }
 
 
+
+
+        Main obj = new Main();
+        obj.allocateCourses(courseList, studentList); //passes the two lists to allocate students as per preferences
+        obj.createOutputFiles(courseList, studentList); //once the course allocations have been done, creates output CSV files
+    }
         //catches an IO Exception if found
-        }catch (IOException e)
+        catch (IOException e)
         {
             System.out.println("Found Exception: "+e);
         }
-        Main obj=new Main();
-        obj.allocateCourses(courseList,studentList); //passes the two lists to allocate students as per preferences
-        obj.createOutputFiles(); //once the course allocations have been done, creates output CSV files
     }
 
     /**
@@ -136,9 +142,23 @@ public class Main
     /**
      * This function will create the output files.
      */
-    public void createOutputFiles()
-    {
-        //Create Output Files
+    public void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter("."+File.separator+"Output1.csv"));
+        CSVPrinter printer = new CSVPrinter(writer, CSVFormat.EXCEL);
+        for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
+        {
+            Course c=(Course) courseIt.next();
+            List<Student> enrolled=c.StudentsEnrolledInCourse;
+            for(Iterator eachCourse=enrolled.iterator();eachCourse.hasNext();)
+            {
+                Student s= (Student) eachCourse.next();
+                printer.printRecord(s.studentName);
+            }
+        }
+        printer.printRecord("Student Name","Student Email id");
+        printer.close();
+        writer.flush();
+        writer.close();
     }
 
     /**
