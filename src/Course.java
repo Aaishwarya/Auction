@@ -21,9 +21,7 @@ public class Course
     String courseName;
     String courseCode;
     int courseCap;
-    int noOfStudentswithPriority1;
-    int noOfStudentswithPriority2;
-    int noOfStudentswithPriority3;
+    int noOfStudentswithCourseAsPriority[9];
 
     /**
      *This List contains the Student objects of the students enrolled in the course.

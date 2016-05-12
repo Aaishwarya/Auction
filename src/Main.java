@@ -36,7 +36,7 @@ public class Main
          */
         List<Student> studentList = new ArrayList<>();
         try {
-            //Read Course Details File frfileNameom the specified directory
+            // Read Course Details File from fileName the specified directory
             File courseDetailsFile = new File("." + File.separator + "Course Details.csv");
             CSVParser inParser = CSVParser.parse(courseDetailsFile, Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
             FileReader fr = new FileReader(courseDetailsFile);
@@ -67,6 +67,7 @@ public class Main
 
         Main obj = new Main();
         obj.allocateCourses(courseList, studentList); //passes the two lists to allocate students as per preferences
+            obj.printStatistics (courseList,studentList);
         obj.createOutputFiles(courseList, studentList); //once the course allocations have been done, creates output CSV files
     }
         //catches an IO Exception if found
@@ -96,7 +97,7 @@ public class Main
         for(int i=0;i<numberOfCourses;i++)
         {
 
-            cloneStudentList=RemoveRedundancies(cloneStudentList,i); //returns a redundancy-free modified cloneStudentList
+            cloneStudentList= RemoveRedundancies(cloneStudentList,i); //returns a redundancy-free modified cloneStudentList
             Collections.shuffle(cloneStudentList); //shuffles the cloneStudentList to achieve a random order
             int flag=1;//serves as a indicator to move on to the next student once the previous student has been assigned a course(flag=1) else repeat(flag=0)
 
@@ -187,6 +188,11 @@ public class Main
         }printer3.close();
 
 
+
+    }
+
+    public void printStatistics(List<Course> courseList, List<Student> studentList)
+    {
 
     }
 
