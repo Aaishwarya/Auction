@@ -5,7 +5,6 @@ import java.util.*;  //Required since we will use ArrayLists
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 
 
 /**
@@ -36,19 +35,8 @@ public class Main
          * The studentList List will contain objects corresponding to each student, with his/her preferences
          */
         List<Student> studentList = new ArrayList<>();
-
-
         try {
-
-            CSVParser parser = CSVParser.parse(new File("."+File.separator+"Course Details.csv"), Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
-            List<CSVRecord> courseDetails = parser.getRecords();
-            for(CSVRecord courseRecord : courseDetails)
-            {
-                courseList.add(new Course(courseRecord));
-            }
-
-            /*
-            //Read Course Details File frfileNameom the specified directory
+            // Read Course Details File from fileName the specified directory
             File courseDetailsFile = new File("." + File.separator + "Course Details.csv");
             CSVParser inParser = CSVParser.parse(courseDetailsFile, Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
             FileReader fr = new FileReader(courseDetailsFile);
@@ -60,19 +48,8 @@ public class Main
                 courseList.add(new Course(coursesInput));
                 coursesInput = lnr.readLine();
             }
-            */
-
-            CSVParser parser2 = CSVParser.parse(new File("."+File.separator+"Preferences.csv"), Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
-            List<CSVRecord> preferencesDetails = parser2.getRecords();
-            for(CSVRecord preferenceRecord : preferencesDetails)
-            {
-                studentList.add(new Student(preferenceRecord));
-            }
-
 
             //Reads the Preferences File from the specified Directory
-
-            /*
             File preferencesFile = new File("." + File.separator + "Preferences.csv");
             FileReader fr2 = new FileReader(preferencesFile);
             LineNumberReader lnr2 = new LineNumberReader(fr2);
@@ -84,12 +61,13 @@ public class Main
                 studentList.add(new Student(PreferencesInput));
                 PreferencesInput = lnr2.readLine();
             }
-            */
+
 
 
 
         Main obj = new Main();
         obj.allocateCourses(courseList, studentList); //passes the two lists to allocate students as per preferences
+            obj.printStatistics (courseList,studentList);
         obj.createOutputFiles(courseList, studentList); //once the course allocations have been done, creates output CSV files
     }
         //catches an IO Exception if found
@@ -119,7 +97,7 @@ public class Main
         for(int i=0;i<numberOfCourses;i++)
         {
 
-            cloneStudentList=RemoveRedundancies(cloneStudentList,i); //returns a redundancy-free modified cloneStudentList
+            cloneStudentList= RemoveRedundancies(cloneStudentList,i); //returns a redundancy-free modified cloneStudentList
             Collections.shuffle(cloneStudentList); //shuffles the cloneStudentList to achieve a random order
             int flag=1;//serves as a indicator to move on to the next student once the previous student has been assigned a course(flag=1) else repeat(flag=0)
 
@@ -164,7 +142,7 @@ public class Main
     /**
      * This function will create the output files.
      */
-    public void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException {
+    private void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException {
 
         //creates files for each course with the list
         for(Iterator courseIt=courseList.iterator();courseIt.hasNext();) {
@@ -210,6 +188,11 @@ public class Main
         }printer3.close();
 
 
+
+    }
+
+    public void printStatistics(List<Course> courseList, List<Student> studentList)
+    {
 
     }
 

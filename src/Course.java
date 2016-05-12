@@ -17,6 +17,7 @@ public class Course
         courseCode=componentsOfEachLine[0];
         courseName=componentsOfEachLine[1];
         courseCap=Integer.parseInt(componentsOfEachLine[2]);
+
     }
     */
     Course(CSVRecord courseRecord)
@@ -29,6 +30,8 @@ public class Course
     String courseName;
     String courseCode;
     int courseCap;
+    int noOfStudentswithCourseAsPriority[9];
+
     /**
      *This List contains the Student objects of the students enrolled in the course.
      */
