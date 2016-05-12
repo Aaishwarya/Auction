@@ -2,22 +2,22 @@ import java.util.*;
 import org.apache.commons.csv.CSVRecord;
 
 /**
- * This class contains details of every course
+ * This class contains details of every course being offered: Course Code, Name, and course Cap.
  */
 public class Course
 {
     /**
-     * This constructor splits the line passed by the CSV file to its individual components to be stored in the corresponding field in the object being created
-     * @param line This string, which is an individual line in the CourseList CSV file, contains the course code, name, and cap, all separated by commas
+     *  This constructor is used to store the details of every course in the corresponding object fields.
+     * @param courseRecord This CSV Record, which is an individual line in the CourseList CSV file, contains the course code, name,
+     *                     and cap, all separated by commas
      */
-
     Course(CSVRecord courseRecord)
     {
         courseCode=courseRecord.get(0);
         courseName=courseRecord.get(1);
         courseCap=Integer.parseInt(courseRecord.get(2));
     }
-    Course(){}
+    //class variable declarations
     String courseName;
     String courseCode;
     int courseCap;

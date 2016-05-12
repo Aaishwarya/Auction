@@ -9,22 +9,24 @@ import org.apache.commons.csv.CSVRecord;
 
 
 /**
- * The Main Class contains the main function, and here we will take the input files for the Course Lists, and the Preferences of the Students
+ * The Main Class contains the main function, and here we will take the input files for the Course Lists, and the Preferences of the Students.
+ * The main function will then allocate courses to students, and will subsequently print the final allocations for every course being offered.
  */
 public class Main
 {
     /**
      * This method reads 2 CSV files as input:
-     * 1) Course Details file: This file, provided by the Office of Academic Affairs, will store the total number of courses offered,
+     * 1) Course Details file ("Course Details.csv"): This file, provided by the Office of Academic Affairs, will store the total number of courses offered,
      *    the corresponding course codes, and the number of seats available for each course.
-     * 2) Preferences file: This file, procured from the students using a Google Form, gives us the preference order of courses of each student.
+     * 2) Preferences file ("Preferences.csv"): This file, procured from the students using a Google Form, gives us the preference order of courses of each student.
      *
      * Based on these inputs, the program allocates courses to the students in the best manner possible.
      *
-     * The program outputs 2 CSV files:
-     * 1) Student List: A File containing the names and IDs of the students enrolled in the various courses
+     * The program outputs the following CSV files:
+     * 1) Student List (for every course): A File containing the names and IDs of the students enrolled in the various courses
      * 2) [Updated] Course Details file: This file contains the number of seats still available in every course, to be fed as input to
      *    another batch of students (if required).
+     * 3) Course List : A File containing the names of all students, along with the courses allocated to them.
      */
     public static void main(String[] args) {
         /**
@@ -38,22 +40,22 @@ public class Main
         List<Student> studentList = new ArrayList<>();
         try {
             CSVParser parser = CSVParser.parse(new File("."+File.separator+"Course Details.csv"), Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
-            List<CSVRecord> courseDetails = parser.getRecords();
-            for(CSVRecord courseRecord : courseDetails)
+            List<CSVRecord> courseDetails = parser.getRecords();    //parsing CSV file
+            for(CSVRecord courseRecord : courseDetails)             //iterating over each courseRecord
             {
-                courseList.add(new Course(courseRecord));
+                courseList.add(new Course(courseRecord));           //making a new object for each course
             }
 
             CSVParser parser2 = CSVParser.parse(new File("."+File.separator+"Preferences.csv"), Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
             List<CSVRecord> preferencesDetails = parser2.getRecords();
             for(CSVRecord preferenceRecord : preferencesDetails)
             {
-                studentList.add(new Student(preferenceRecord));
+                studentList.add(new Student(preferenceRecord));     //making a new object for each student
             }
 
         Main obj = new Main();
         obj.allocateCourses(courseList, studentList); //passes the two lists to allocate students as per preferences
-            obj.printStatistics (courseList,studentList);
+        obj.printStatistics (courseList,studentList); //prints statistics for internal use by the Office of Academic Affairs
         obj.createOutputFiles(courseList, studentList); //once the course allocations have been done, creates output CSV files
     }
         //catches an IO Exception if found
@@ -64,14 +66,19 @@ public class Main
     }
 
     /**
-     * This function will allocate courses based on an algorithm.
+     * This function will allocate courses based on an algorithm which tries to give every student his/her most preferred course.
+     * @param courseList This List contains objects of every course being offered, which in turn contain the details of the corresponding course
+     *                   as their fields.
+     * @param studentList This List contains objects of every student who has to be allocated courses, which further contain details of the students.
      */
     public void allocateCourses(List<Course> courseList, List<Student> studentList)
     {
         int numberOfCourses=courseList.size();
         int numberOfStudents=studentList.size();
 
-        //creates a new clone list of the original student list
+        /**
+         * This clone list of the original student list will be manipulated during allocation, to leave the original list undisturbed for future use.
+         */
         List<Student> cloneStudentList=new ArrayList<>(numberOfStudents);
         for(Iterator it=studentList.iterator();it.hasNext();)
         {
@@ -82,10 +89,10 @@ public class Main
         PRIME:
         for(int i=0;i<numberOfCourses;i++)
         {
-
-            cloneStudentList= RemoveRedundancies(cloneStudentList,i); //returns a redundancy-free modified cloneStudentList
-            Collections.shuffle(cloneStudentList); //shuffles the cloneStudentList to achieve a random order
-            int flag=1;//serves as a indicator to move on to the next student once the previous student has been assigned a course(flag=1) else repeat(flag=0)
+            //returns a modified cloneStudentList after removing the students whose listed priorities have been exhausted.
+            cloneStudentList= RemoveRedundancies(cloneStudentList,i);
+            Collections.shuffle(cloneStudentList);  //shuffles the cloneStudentList to achieve a random order
+            int flag=1;     //serves as a indicator to move on to the next student once the previous student has been assigned a course(flag=1) else repeat(flag=0)
 
             //iterates on the shuffled list to assign courses student by student
             for(ListIterator it = (ListIterator) cloneStudentList.listIterator(); it.hasNext();)
@@ -99,7 +106,9 @@ public class Main
                     flag=1;
                 }
 
+                //Actual course allocation done here
                 String preferenceArrayOfStudent[]=s.preferenceSetOfStudent.toArray(new String[s.preferenceSetOfStudent.size()]);
+
                 for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
                 {
                     Course c=(Course) courseIt.next();
@@ -125,12 +134,17 @@ public class Main
         }
     }
 
-    /**
-     * This function will create the output filespertaining to individual courses as well as the Student allocation data
-     */
-    private void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException {
 
-        //Stores these output files in a directory
+    /**
+     * This function will create the output files pertaining to individual courses as well as the Student allocation data
+     * @param courseList This List contains objects of every course being offered, which in turn contain the details of the corresponding course
+     *                   as their fields.
+     * @param studentList This List contains objects of every student who has to be allocated courses, which further contain details of the students.
+     */
+    private void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException
+    {
+
+        //Stores the output files in a directory
         String dirname = "OutputFiles";
         File outputDirectory = new File(dirname);
         outputDirectory.mkdirs();
@@ -172,26 +186,39 @@ public class Main
             }
             printer2.println();
 
-        }printer2.close();
+        }
+        printer2.close();
 
         //Outputs the altered Course Details file with the redefined course caps so that it can be reused
         File file3 = new File ("." + File.separator+ outputDirectory+ File.separator + "Altered Course Details.csv");
         CSVPrinter printer3 = new CSVPrinter (new BufferedWriter (new FileWriter (file3)), CSVFormat.EXCEL);
-        printer3.printRecord("Course Code", "Course Name", "Course Cap");
-        for(Iterator courseIt=courseList.iterator();courseIt.hasNext();) {
+        printer3.printRecord("Course Code", "Course Name", "Seats Available");
+
+        for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
+        {
             Course c = (Course) courseIt.next ( );
             printer3.printRecord (c.courseCode, c.courseName, c.courseCap);
-        }printer3.close();
+        }
+        printer3.close();
     }
 
-
+    /**
+     * This method will print statistics like how many students got their 1st/2nd preferred course, etc., ehich can be used to
+     * check the efficiency of the system.
+     * @param courseList This List contains objects of every course being offered, which in turn contain the details of the corresponding course
+     *                   as their fields.
+     * @param studentList This List contains objects of every student who has to be allocated courses, which further contain details of the students.
+     */
     public void printStatistics(List<Course> courseList, List<Student> studentList)
     {
 
     }
 
     /**
-     * Removes redundancies in the StudentList and returns the modified one
+     * This method removes the students who have run out of preferences from the clone list.
+     * @param studentList This List contains objects of every student who has to be allocated courses, which further contain details of the students.
+     * @param currentPreferenceNo Indicates which preference number course is being currently alloated by the program.
+     * @return Returns a list after removing the redundant students (i.e. the ones who have run out of their listed choices)
      */
     public List RemoveRedundancies(List studentList, int currentPreferenceNo)
     {
@@ -213,4 +240,3 @@ public class Main
         return studentList;
     }
 }
-
