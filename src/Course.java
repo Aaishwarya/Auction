@@ -15,11 +15,16 @@ public class Course
         courseCode=componentsOfEachLine[0];
         courseName=componentsOfEachLine[1];
         courseCap=Integer.parseInt(componentsOfEachLine[2]);
+
     }
     Course(){}
     String courseName;
     String courseCode;
     int courseCap;
+    int noOfStudentswithPriority1;
+    int noOfStudentswithPriority2;
+    int noOfStudentswithPriority3;
+
     /**
      *This List contains the Student objects of the students enrolled in the course.
      */

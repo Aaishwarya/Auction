@@ -5,7 +5,6 @@ import java.util.*;  //Required since we will use ArrayLists
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVRecord;
 
 
 /**
@@ -142,7 +141,7 @@ public class Main
     /**
      * This function will create the output files.
      */
-    public void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException {
+    private void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException {
 
         //creates files for each course with the list
         for(Iterator courseIt=courseList.iterator();courseIt.hasNext();) {
