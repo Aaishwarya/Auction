@@ -12,24 +12,6 @@ public class Student
      * @param line This string, which is an individual line in the Preferences CSV file, contains the name, ID, and the course preferences order
      *             of the student, all separated by commas.
      */
-
-    /*
-    Student(String line)
-    {
-        String[] componentsOfEachLine=line.split(",");
-        int numberOfCourses=componentsOfEachLine.length-5;
-        preferenceSetOfStudent=new LinkedHashSet<>();
-        studentEmailId=componentsOfEachLine[1];
-        studentName=componentsOfEachLine[2];
-        studentEnrollmentID=componentsOfEachLine[3];
-        numberOfCoursesStudentWants=Integer.parseInt(componentsOfEachLine[4]);
-        for (int i=0;i<numberOfCourses;i++)
-        {
-            preferenceSetOfStudent.add(componentsOfEachLine[i+5]);
-        }
-    }
-    */
-
     Student(CSVRecord preferenceRecord)
     {
         preferenceSetOfStudent=new LinkedHashSet<>();

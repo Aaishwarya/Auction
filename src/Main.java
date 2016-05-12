@@ -5,6 +5,7 @@ import java.util.*;  //Required since we will use ArrayLists
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 
 
 /**
@@ -36,34 +37,19 @@ public class Main
          */
         List<Student> studentList = new ArrayList<>();
         try {
-            // Read Course Details File from fileName the specified directory
-            File courseDetailsFile = new File("." + File.separator + "Course Details.csv");
-            CSVParser inParser = CSVParser.parse(courseDetailsFile, Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
-            FileReader fr = new FileReader(courseDetailsFile);
-            LineNumberReader lnr = new LineNumberReader(fr);
-            String coursesHeaderLine = lnr.readLine(); //reads the first line of the file which is the header file
-            String coursesInput = lnr.readLine(); //reads each line of the Course Details File.
-            //Reading every line of the Course Details file, and adding an object corresponding to each course to the courseList
-            while (coursesInput != null) {
-                courseList.add(new Course(coursesInput));
-                coursesInput = lnr.readLine();
+            CSVParser parser = CSVParser.parse(new File("."+File.separator+"Course Details.csv"), Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
+            List<CSVRecord> courseDetails = parser.getRecords();
+            for(CSVRecord courseRecord : courseDetails)
+            {
+                courseList.add(new Course(courseRecord));
             }
 
-            //Reads the Preferences File from the specified Directory
-            File preferencesFile = new File("." + File.separator + "Preferences.csv");
-            FileReader fr2 = new FileReader(preferencesFile);
-            LineNumberReader lnr2 = new LineNumberReader(fr2);
-            String PreferencesHeaderLine = lnr2.readLine(); //reads the first line of the file which is the header file
-            String PreferencesInput = lnr2.readLine(); //reads each line of the Preferences File.
-
-            //Reading every line of the CSV file, and adding an object corresponding to each student, and his/her preferences
-            while (PreferencesInput != null) {
-                studentList.add(new Student(PreferencesInput));
-                PreferencesInput = lnr2.readLine();
+            CSVParser parser2 = CSVParser.parse(new File("."+File.separator+"Preferences.csv"), Charset.forName("UTF-8"), CSVFormat.EXCEL.withHeader());
+            List<CSVRecord> preferencesDetails = parser2.getRecords();
+            for(CSVRecord preferenceRecord : preferencesDetails)
+            {
+                studentList.add(new Student(preferenceRecord));
             }
-
-
-
 
         Main obj = new Main();
         obj.allocateCourses(courseList, studentList); //passes the two lists to allocate students as per preferences
