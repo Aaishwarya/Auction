@@ -14,12 +14,15 @@ public class Student
      */
     Student(CSVRecord preferenceRecord)
     {
+        //using LinkedHashSet to store Student Preferences to make sure that no preferences are repeated
         preferenceSetOfStudent=new LinkedHashSet<>();
-        studentEmailId=preferenceRecord.get(1);
-        studentName=preferenceRecord.get(2);
-        studentEnrollmentID=preferenceRecord.get(3);
-        numberOfCoursesStudentWants=Integer.parseInt(preferenceRecord.get(4));
+        studentEmailId=preferenceRecord.get(1); //auto-generated from the Google Form
+        studentName=preferenceRecord.get(2); //Mandatory in the google form
+        studentEnrollmentID=preferenceRecord.get(3); //mandatory in the google form
+        numberOfCoursesStudentWants=Integer.parseInt(preferenceRecord.get(4)); //just 2 options given ({2,3})
         int numberOfCourses=preferenceRecord.size()-5;
+
+        //storing the student preferences in the set
         for(int i=0;i<numberOfCourses;i++)
         {
             preferenceSetOfStudent.add(preferenceRecord.get(i+5));
@@ -27,11 +30,14 @@ public class Student
 
     }
     Student() {}
+
+    //class variables declaration
     String studentEmailId;
     String studentName;
     String studentEnrollmentID;
     int numberOfCoursesStudentWants;
     LinkedHashSet<String> preferenceSetOfStudent;
+
     /**
      *This List contains the Course objects of the courses allocated to the student.
      */

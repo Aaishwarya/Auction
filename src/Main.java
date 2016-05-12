@@ -99,7 +99,7 @@ public class Main
                     flag=1;
                 }
 
-                String preferenceArrayOfStudent[]=(String[]) s.preferenceSetOfStudent.toArray(new String[s.preferenceSetOfStudent.size()]);
+                String preferenceArrayOfStudent[]=s.preferenceSetOfStudent.toArray(new String[s.preferenceSetOfStudent.size()]);
                 for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
                 {
                     Course c=(Course) courseIt.next();
@@ -126,22 +126,27 @@ public class Main
     }
 
     /**
-     * This function will create the output files.
+     * This function will create the output filespertaining to individual courses as well as the Student allocation data
      */
     private void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException {
 
+        //Stores these output files in a directory
         String dirname = "OutputFiles";
         File outputDirectory = new File(dirname);
         outputDirectory.mkdirs();
-        //creates files for each course with the list
-        for(Iterator courseIt=courseList.iterator();courseIt.hasNext();) {
+
+        //creates files for each course with the list of students enrolled in it
+        for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
+        {
             Course c = (Course) courseIt.next ( );
             String fileName = c.courseName;
             File file = new File ("." + File.separator + outputDirectory+ File.separator+ fileName + ".csv");
             CSVPrinter printer = new CSVPrinter (new BufferedWriter (new FileWriter (file)), CSVFormat.EXCEL);
             printer.printRecord ("Student Name", "Student Enrollment ID", "Student Email id");
             List<Student> enrolled = c.StudentsEnrolledInCourse;
-            for (Iterator eachCourse = enrolled.iterator ( ); eachCourse.hasNext ( ); ) {
+
+            for (Iterator eachCourse = enrolled.iterator ( ); eachCourse.hasNext ( ); )
+            {
                 Student s = (Student) eachCourse.next ( );
                 printer.printRecord (s.studentName, s.studentEnrollmentID, s.studentEmailId);
             }
@@ -149,6 +154,8 @@ public class Main
             printer.close ( );
 
         }
+
+        //Outputs a CSV file which consist of details of all students and their corresponding allocated subjects
         File file2 = new File ("." + File.separator+ outputDirectory+ File.separator + "StudentCourseList.csv");
         CSVPrinter printer2 = new CSVPrinter (new BufferedWriter (new FileWriter (file2)), CSVFormat.EXCEL);
         printer2.printRecord ("Student Enrollment ID", "Student Email ID", "Student Name", "Course1", "Course2", "Course3");
@@ -156,8 +163,8 @@ public class Main
         {
             Student s=(Student) eachStudent.next();
             printer2.print(s.studentEnrollmentID);
-            printer2.print (s.studentEmailId);
-            printer2.print (s.studentName);
+            printer2.print(s.studentEmailId);
+            printer2.print(s.studentName);
             for(Iterator eachStudentCourses=s.CoursesAllocatedToStudent.iterator();eachStudentCourses.hasNext();)
             {
                 Course c=(Course) eachStudentCourses.next ();
@@ -167,7 +174,7 @@ public class Main
 
         }printer2.close();
 
-        //Altered Course Details file
+        //Outputs the altered Course Details file with the redefined course caps so that it can be reused
         File file3 = new File ("." + File.separator+ outputDirectory+ File.separator + "Altered Course Details.csv");
         CSVPrinter printer3 = new CSVPrinter (new BufferedWriter (new FileWriter (file3)), CSVFormat.EXCEL);
         printer3.printRecord("Course Code", "Course Name", "Course Cap");
@@ -175,10 +182,8 @@ public class Main
             Course c = (Course) courseIt.next ( );
             printer3.printRecord (c.courseCode, c.courseName, c.courseCap);
         }printer3.close();
-
-
-
     }
+
 
     public void printStatistics(List<Course> courseList, List<Student> studentList)
     {
@@ -186,9 +191,9 @@ public class Main
     }
 
     /**
-     * To remove redundancies in the StudentList
+     * Removes redundancies in the StudentList and returns the modified one
      */
-    public List RemoveRedundancies(List studentList, int prefNo)
+    public List RemoveRedundancies(List studentList, int currentPreferenceNo)
     {
         List<Student> cloneStudentsList=new ArrayList<>(studentList.size());
         for(Iterator it=studentList.iterator();it.hasNext();)
@@ -199,7 +204,7 @@ public class Main
         {
 
             Student s= (Student) it.next();
-            if ((s.numberOfCoursesStudentWants==s.CoursesAllocatedToStudent.size())||(s.preferenceSetOfStudent.size()<=prefNo))
+            if ((s.numberOfCoursesStudentWants==s.CoursesAllocatedToStudent.size())||(s.preferenceSetOfStudent.size()<=currentPreferenceNo))
             {
                 studentList.remove(s);
             }
