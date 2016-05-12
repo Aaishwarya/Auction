@@ -130,11 +130,14 @@ public class Main
      */
     private void createOutputFiles(List<Course> courseList, List<Student> studentList) throws IOException {
 
+        String dirname = "OutputFiles";
+        File outputDirectory = new File(dirname);
+        outputDirectory.mkdirs();
         //creates files for each course with the list
         for(Iterator courseIt=courseList.iterator();courseIt.hasNext();) {
             Course c = (Course) courseIt.next ( );
             String fileName = c.courseName;
-            File file = new File ("." + File.separator + fileName + ".csv");
+            File file = new File ("." + File.separator + outputDirectory+ File.separator+ fileName + ".csv");
             CSVPrinter printer = new CSVPrinter (new BufferedWriter (new FileWriter (file)), CSVFormat.EXCEL);
             printer.printRecord ("Student Name", "Student Enrollment ID", "Student Email id");
             List<Student> enrolled = c.StudentsEnrolledInCourse;
@@ -146,7 +149,7 @@ public class Main
             printer.close ( );
 
         }
-        File file2 = new File ("." + File.separator + "StudentCourseList.csv");
+        File file2 = new File ("." + File.separator+ outputDirectory+ File.separator + "StudentCourseList.csv");
         CSVPrinter printer2 = new CSVPrinter (new BufferedWriter (new FileWriter (file2)), CSVFormat.EXCEL);
         printer2.printRecord ("Student Enrollment ID", "Student Email ID", "Student Name", "Course1", "Course2", "Course3");
         for(Iterator eachStudent=studentList.iterator();eachStudent.hasNext();)
@@ -165,7 +168,7 @@ public class Main
         }printer2.close();
 
         //Altered Course Details file
-        File file3 = new File ("." + File.separator + "Altered Course Details.csv");
+        File file3 = new File ("." + File.separator+ outputDirectory+ File.separator + "Altered Course Details.csv");
         CSVPrinter printer3 = new CSVPrinter (new BufferedWriter (new FileWriter (file3)), CSVFormat.EXCEL);
         printer3.printRecord("Course Code", "Course Name", "Course Cap");
         for(Iterator courseIt=courseList.iterator();courseIt.hasNext();) {
