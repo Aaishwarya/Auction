@@ -28,7 +28,6 @@ public class Main
      *    another batch of students (if required).
      * 3) Course List : A File containing the names of all students, along with the courses allocated to them.
      */
-    static int f=0;
     public static void main(String[] args) {
         /**
          * The courseList List will contain objects corresponding to each course offered
@@ -90,7 +89,7 @@ public class Main
         for(int i=0;i<numberOfCourses;i++)
         {
             //returns a modified cloneStudentList after removing the students whose listed priorities have been exhausted.
-            cloneStudentList= RemoveRedundancies(cloneStudentList,i);
+            cloneStudentList= removeRedundancies(cloneStudentList,i);
             Collections.shuffle(cloneStudentList);  //shuffles the cloneStudentList to achieve a random order
             Collections.shuffle(cloneStudentList);
             Collections.shuffle(cloneStudentList);
@@ -246,7 +245,7 @@ public class Main
      * @param currentPreferenceNo Indicates which preference number course is being currently alloated by the program.
      * @return Returns a list after removing the redundant students (i.e. the ones who have run out of their listed choices)
      */
-    public List RemoveRedundancies(List studentList, int currentPreferenceNo)
+    public List removeRedundancies(List studentList, int currentPreferenceNo)
     {
         List<Student> cloneStudentsList=new ArrayList<>(studentList.size());
         for(Iterator it=studentList.iterator();it.hasNext();)
