@@ -21,6 +21,7 @@ public class Course
     String courseName;
     String courseCode;
     int courseCap;
+    int preferenceCount[]=new int[9];
 
     /**
      *This List contains the Student objects of the students enrolled in the course.

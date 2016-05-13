@@ -54,8 +54,8 @@ public class Main
             }
 
         Main obj = new Main();
+            obj.printStatistics (courseList,studentList); //prints statistics for internal use by the Office of Academic Affairs
         obj.allocateCourses(courseList, studentList); //passes the two lists to allocate students as per preferences
-        obj.printStatistics (courseList,studentList); //prints statistics for internal use by the Office of Academic Affairs
         obj.createOutputFiles(courseList, studentList); //once the course allocations have been done, creates output CSV files
     }
         //catches an IO Exception if found
@@ -199,6 +199,21 @@ public class Main
             printer3.printRecord (c.courseCode, c.courseName, c.courseCap);
         }
         printer3.close();
+
+        //Outputs the data statistics for the given data
+        File file4=new File("." + File.separator+ outputDirectory+ File.separator + "File Analytics.csv");
+        CSVPrinter printer4 = new CSVPrinter (new BufferedWriter (new FileWriter (file4)), CSVFormat.EXCEL);
+        printer4.printRecord("Course Name ", "1st Preference ", "2nd Preference ", "3rd Preference ", "4th Preference ", "5th Preference ", "6th Preference ", " 7th Preference ", "8th Preference ", "9th Preference");
+        for(Iterator courseIt=courseList.iterator();courseIt.hasNext();)
+        {
+            Course c = (Course) courseIt.next ( );
+            printer4.print(c.courseName);
+            for(int i=0;i<c.preferenceCount.length;i++) {
+                printer4.print(c.preferenceCount[i]);
+            }
+            printer4.printRecord();
+        }
+        printer4.close();
     }
 
     /**
@@ -210,7 +225,19 @@ public class Main
      */
     public void printStatistics(List<Course> courseList, List<Student> studentList)
     {
-
+        for(Iterator eachStudent=studentList.iterator();eachStudent.hasNext();) {
+            Student s = (Student) eachStudent.next ( );
+            int counter = 0;
+            for (String str : s.preferenceSetOfStudent) {
+                for (Iterator courseIt = courseList.iterator ( ); courseIt.hasNext ( ); ) {
+                    Course c = (Course) courseIt.next ( );
+                    if (str.equalsIgnoreCase (c.courseName)) {
+                        c.preferenceCount[counter]++;
+                    }
+                }
+                counter++;
+            }
+        }
     }
 
     /**
