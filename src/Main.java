@@ -28,12 +28,12 @@ public class Main
      *    another batch of students (if required).
      * 3) Course List : A File containing the names of all students, along with the courses allocated to them.
      */
+    static int f=0;
     public static void main(String[] args) {
         /**
          * The courseList List will contain objects corresponding to each course offered
          */
         List<Course> courseList = new ArrayList<>();
-
         /**
          * The studentList List will contain objects corresponding to each student, with his/her preferences
          */
@@ -102,7 +102,6 @@ public class Main
                 //repeats allocation for same student if (s)he hasn't been assigned one in the current PRIME iteration
                 if(flag==0&& it.hasPrevious())
                 {
-                    s=(Student) it.previous();
                     flag=1;
                 }
 
