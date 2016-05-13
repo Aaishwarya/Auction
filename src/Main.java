@@ -91,9 +91,6 @@ public class Main
             //returns a modified cloneStudentList after removing the students whose listed priorities have been exhausted.
             cloneStudentList= removeRedundancies(cloneStudentList,i);
             Collections.shuffle(cloneStudentList);  //shuffles the cloneStudentList to achieve a random order
-            Collections.shuffle(cloneStudentList);
-            Collections.shuffle(cloneStudentList);
-            Collections.shuffle(cloneStudentList);
             int flag=1;     //serves as a indicator to move on to the next student once the previous student has been assigned a course(flag=1) else repeat(flag=0)
 
             //iterates on the shuffled list to assign courses student by student
